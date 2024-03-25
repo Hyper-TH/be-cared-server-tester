@@ -1,10 +1,7 @@
 import { firestore } from '../config/config.js';
 import { compareBuffer } from '../cacheMethods/util/compareBuffer.js';
-import { pushFakeDoc } from './pushFakeDoc.js';
 
 export const updateSubscriber = async () => {
-    await pushFakeDoc();
-
     const user = "test2@123.com"
     const id = "32665";
     const type = "spc";
