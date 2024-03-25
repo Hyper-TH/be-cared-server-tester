@@ -5,6 +5,7 @@ import { getNewDocument } from '../cacheMethods/util/getNewDocument.js';
 export const pushFakeDoc = async () => {
     console.log("Initiating test function 'pushFakeDoc'...");
 
+    const id = "32665";
     const pilDocument = await getNewDocument("62eba39dadab2.pdf");
     const spcDocument = await getNewDocument("62eba39dadab2.pdf");
 
@@ -27,15 +28,16 @@ export const pushFakeDoc = async () => {
             }
 
             let data = {
-                id: '32665',
-                name: 'Lemsip Max Cold & Flu Blackcurrant 1000mg Powder for Oral Solution',
-                activeIngredients: activeIngredients,
-                pil: newPIL,
-                spc: newSPC
+                [id]: {
+                    name: 'Lemsip Max Cold & Flu Blackcurrant 1000mg Powder for Oral Solution',
+                    activeIngredients: activeIngredients,
+                    pil: newPIL,
+                    spc: newSPC
+                }
             };
 
-            await firestore.collection(collectionName).doc(documentID).set({
-                medicines: admin.firestore.FieldValue.arrayUnion(data)
+            await docRef.update({
+                [`medicines.${id}`]: data[id] // Update the specific medicine by its ID
             });
     
             console.log(`Document with ID: ${documentID} uploaded to Firestore.`);

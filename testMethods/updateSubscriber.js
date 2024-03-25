@@ -1,6 +1,10 @@
 import { firestore } from '../config/config.js';
- 
+import { compareBuffer } from '../cacheMethods/util/compareBuffer.js';
+import { pushFakeDoc } from './pushFakeDoc.js';
+
 export const updateSubscriber = async () => {
+    await pushFakeDoc();
+
     const user = "test2@123.com"
     const id = "32665";
     const type = "spc";
@@ -18,13 +22,13 @@ export const updateSubscriber = async () => {
     console.log("User medicines", userMedicines);
     const medicineExists = userMedicines.hasOwnProperty(id);
 
+    // If medicine is indeed subscribed by user
     if (medicineExists) {
         console.log(`Found user's medicine to check for updates`);
         
         // Get the path in the medicines collection using ID
         const medsDoc = await firestore.collection("medicines").doc(id).get();
         const medsData = medsDoc.data();
-        console.log(`MedsData:`, medsData);
 
         const cachedPath = medsData[type + "Path"];
 
@@ -34,11 +38,11 @@ export const updateSubscriber = async () => {
         const filesDoc = await firestore.collection("files").doc(cachedPath).get();
         const filesData = filesDoc.data();
 
-        // If there is a cached doc 
+        // If there is a cached doc within the files collection
         if (filesData) {
             const cachedDoc = filesData.doc;
 
-            console.log(`Got doc: `, cachedDoc);
+            console.log(`Got cached doc...`);
 
             // Grab the document from the user's side
             const medData = userData.medicines;
@@ -61,11 +65,9 @@ export const updateSubscriber = async () => {
                         .catch((error) => console.error("Error updating document: ", error));
 
                     console.log(`User's ${type} doc has been updated`);
-                    return true;
 
                 } else {
                     console.log(`No new updates for user's ${type} doc`);
-                    return true;
                 }
             } 
             
@@ -88,7 +90,6 @@ export const updateSubscriber = async () => {
                 await firestore.collection("users").doc(user).update(updateObject);
     
                 console.log(`User's ${type} doc has been updated`);
-                return true;
             }
         } else {
             console.log(`No found cached file`);
@@ -99,8 +100,4 @@ export const updateSubscriber = async () => {
         console.log(`Medicine not found`);
         return false;
     }
-
-
-    console.log(`Exiting /updateUser`);
-    return true;
 }
