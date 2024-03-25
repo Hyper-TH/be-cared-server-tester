@@ -1,4 +1,6 @@
-export const updateSubscriber = async (user, id, type) => {
+import { firestore } from '../config/config.js';
+ 
+export const updateSubscriber = async () => {
     const user = "test2@123.com"
     const id = "32665";
     const type = "spc";
@@ -59,9 +61,11 @@ export const updateSubscriber = async (user, id, type) => {
                         .catch((error) => console.error("Error updating document: ", error));
 
                     console.log(`User's ${type} doc has been updated`);
+                    return true;
 
                 } else {
                     console.log(`No new updates for user's ${type} doc`);
+                    return true;
                 }
             } 
             
@@ -84,19 +88,19 @@ export const updateSubscriber = async (user, id, type) => {
                 await firestore.collection("users").doc(user).update(updateObject);
     
                 console.log(`User's ${type} doc has been updated`);
-
+                return true;
             }
         } else {
             console.log(`No found cached file`);
         }
         
-        // TODO: Check if they're the same and use jest
 
     } else {
         console.log(`Medicine not found`);
+        return false;
     }
 
 
     console.log(`Exiting /updateUser`);
-    res.json({ status : 200 });
+    return true;
 }

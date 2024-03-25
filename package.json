@@ -2,7 +2,7 @@
   "name": "be-cared-server-tester",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "jest"
