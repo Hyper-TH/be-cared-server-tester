@@ -20,7 +20,7 @@ import { getNewMedsData } from './util/getNewMedsData.js';
 import { compareBuffer } from './util/compareBuffer.js';
 
 // Method to cache PIL every week
-const weeklyCachePIL = async () => {
+export const weeklyCachePIL = async () => {
     
     console.log("Job started");
     console.trace('Trace at cron job execution');
@@ -94,7 +94,7 @@ const weeklyCachePIL = async () => {
 };  
 
 // Method to cache PIL every week
-const weeklyCacheSPC = async () => {
+export const weeklyCacheSPC = async () => {
     console.log("Job started");
     const path = "spcPath";
 
