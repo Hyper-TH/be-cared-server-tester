@@ -2,7 +2,7 @@ import { firestore } from '../config/config.js';
 import admin from 'firebase-admin';
 import { getNewDocument } from '../cacheMethods/util/getNewDocument.js';
 
-export const pushFakeDoc = async () => {
+export const pushFakeUserDoc = async () => {
     console.log("Initiating test function 'pushFakeDoc'...");
 
     const id = "32665";

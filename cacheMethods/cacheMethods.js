@@ -11,7 +11,7 @@
 */
 
 import  { CronJob } from 'cron';
-import { firestore } from '../../config/config.js';
+import { firestore } from '../config/config.js';
 import { 
     equalPath, unequalDocuments, uncachedPath, 
     unequalPaths, outdatedCache, unavailableMed 
@@ -189,8 +189,6 @@ export const weeklyCacheSPC = async () => {
 */
 
 // Method to check if user is up to date
-// TODO: Clean code
-// TODO: Add another bool value before counting whether medicine has new document or not
 export const notifications = async (medicines) => {
     let count = 0;
     let subscriptions = [];
@@ -413,14 +411,3 @@ export const notifications = async (medicines) => {
 
     return [ subscriptions, count ];
 };
-
-// TODO: Vercel has a setup for cron jobs, establish that
-export const job = new CronJob(
-    '*/20 * * * * *', 
-    weeklyCachePIL, 
-    null, 
-    false,
-    'Europe/London'
-);
-
-// job.start();

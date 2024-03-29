@@ -1,6 +1,6 @@
-import { firestore } from '../../config/config.js';
-import { tokenOptions } from '../tokenOptions.js';
-import { requestToken, requestDocument } from '../methods.js';
+import { firestore } from '../config/config.js';
+import { tokenOptions } from './tokenOptions.js';
+import { requestToken, requestDocument } from '../cacheMethods/cacheMethods.js';
 import { estimateFirestoreDocumentSize } from './util/estimateFirestoreDocumentSize.js';
 
 /* CONDITION: cachedPath === newPath  */

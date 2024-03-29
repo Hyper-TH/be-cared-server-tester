@@ -1,5 +1,5 @@
-import { tokenOptions } from "../../tokenOptions.js";
-import { requestToken, requestList } from "../../methods.js";
+import { tokenOptions } from "../tokenOptions.js";
+import { requestToken, requestList } from "../methods.js";
 
 // Method to get the new version of medicine
 export const getNewMedsData = async (medicineID, medicineName) => {

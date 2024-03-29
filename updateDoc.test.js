@@ -1,7 +1,7 @@
-import { pushFakeDoc } from './testMethods/pushFakeDoc.js'
+import { pushFakeUserDoc } from './testMethods/pushFakeUserDoc.js'
 import { updateSubscriber } from './testMethods/updateSubscriber.js';
 import { checkUserDoc } from './testMethods/checkUserDoc.js'
-
+import { weeklyCachePIL, weeklyCacheSPC } from './cacheMethods/cacheMethods.js';
 
 // Describe a test suite for your document update flow
 describe('Document Update Flow', () => {
@@ -9,7 +9,7 @@ describe('Document Update Flow', () => {
     // Test case: Check if the document update flow behaves as expected
     test('Successfully updates and verifies the user document', async () => {
         // Step 1: Push a fake document to set up the test environment
-        await pushFakeDoc();
+        await pushFakeUserDoc();
         
         // TODO: Step 2: Run notifications() and see if it got updated (resolves.toBe(true))
 
@@ -26,5 +26,11 @@ describe('Document Update Flow', () => {
 
     test('Successfully update and verify cached PIL documents', async () => {
 
+
+
     }, 10000);
+
+
 });
+
+await pushFakeDoc();
