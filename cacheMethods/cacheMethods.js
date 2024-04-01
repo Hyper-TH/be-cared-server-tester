@@ -10,13 +10,12 @@
     the user side will still stay on the outdated document.
 */
 
-import  { CronJob } from 'cron';
 import { firestore } from '../config/config.js';
 import { 
     equalPath, unequalDocuments, uncachedPath, 
     unequalPaths, outdatedCache, unavailableMed 
 } from './conditions.js';
-import { getNewMedsData } from './util/getNewMedsData.js';
+import { getNewMedsData } from './util/firestoreUtils.js';
 import { compareBuffer } from './util/compareBuffer.js';
 
 // Method to cache PIL every week
@@ -91,6 +90,7 @@ export const weeklyCachePIL = async () => {
     }
     
     console.log("Job Ended");
+    return true;
 };  
 
 // Method to cache PIL every week

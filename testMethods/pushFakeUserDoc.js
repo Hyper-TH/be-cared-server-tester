@@ -1,6 +1,5 @@
 import { firestore } from '../config/config.js';
-import admin from 'firebase-admin';
-import { getNewDocument } from '../cacheMethods/util/getNewDocument.js';
+import { getNewDocument } from '../cacheMethods/util/httpUtils.js';
 
 export const pushFakeUserDoc = async () => {
     console.log("Initiating test function 'pushFakeDoc'...");
@@ -51,5 +50,3 @@ export const pushFakeUserDoc = async () => {
 
     console.log("Exiting test function 'pushFakeDoc'...")
 };
-
-await pushFakeDoc();
