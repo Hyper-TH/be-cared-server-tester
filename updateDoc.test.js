@@ -1,29 +1,48 @@
 import { pushFakeUserDoc } from './testMethods/pushFakeUserDoc.js'
 import { updateSubscriber } from './testMethods/updateSubscriber.js';
 import { checkUserDoc } from './testMethods/checkUserDoc.js'
-import { weeklyCachePIL, weeklyCacheSPC } from './cacheMethods/cacheMethods.js';
+import { notifications, weeklyCachePIL, weeklyCacheSPC } from './cacheMethods/cacheMethods.js';
 
 // Describe a test suite for your document update flow
 // npm test > logs.txt or npm test >> logs.txt for appending
 describe('Document Update Flow', () => {
 
+    // Test case: Push a different doc to a user's cached SPC
+    // ID: 32665 fake doc pushed to SPC
+    test('Successfully push a fake document to user', async () => {
+        try {
+            
+            // Step 1: Push fake document to set up the test environment
+            await pushFakeUserDoc();
+
+            // Step 2: Run notifications() and check for update
+            const notificationResult = await notifications();
+            expect(notificationResult).toBe(true);
+
+        } catch {
+            // Optionally log the error or perform additional error handling
+            throw new Error(`Test failed with error: ${error.message}`);
+        }
+    }, 10000);
+
     // Test case: Check if the document update flow behaves as expected
     test('Successfully updates and verifies the user document', async () => {
-        // Step 1: Push a fake document to set up the test environment
-        await pushFakeUserDoc();
-        
-        // TODO: Step 2: Run notifications() and see if it got updated (resolves.toBe(true))
+        try {
+            // Step 3: Update the subscriber based on the fake document
+            await updateSubscriber();
 
-        // Step 3: Update the subscriber based on the fake document
-        await updateSubscriber();
-
-
-        // Step 4: Verify the document update was successful
-        // The checkUserDoc function should return a Promise that resolves to true if the document state is as expected
-        await expect(checkUserDoc()).resolves.toBe(true);
+            // Step 4: Verify the document update was successful
+            const checkResult = await checkUserDoc();
+            expect(checkResult).toBe(true);
+            
+        } catch (error) {
+            // Optionally log the error or perform additional error handling
+            throw new Error(`Test failed with error: ${error.message}`);
+        }
     }, 10000); // Set a timeout of 10 seconds for this test
 
 
+    // Test case: Weekly caching of PIL
     test('Successfully update and verify cached PIL documents', done => {
         weeklyCachePIL().then(result => {
             expect(result).toBe(true);
@@ -34,9 +53,10 @@ describe('Document Update Flow', () => {
     }, 200000); // Increase timeout as needed
    
     
-    // TODO: Push a fake doc into one of the PIL documents then run the test
-    test('Successfully push a fake PIL and update it', done => {
+    // TODO: Push a fake doc into one of the PIL documents 
+    // then run the WeeklyCache again (except only log if its updated)
+    // test('Successfully push a fake PIL and update it', done => {
         
 
-    }, 200000)
+    // }, 200000)
 });
