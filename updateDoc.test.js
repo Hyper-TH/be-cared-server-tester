@@ -4,6 +4,7 @@ import { checkUserDoc } from './testMethods/checkUserDoc.js'
 import { weeklyCachePIL, weeklyCacheSPC } from './cacheMethods/cacheMethods.js';
 
 // Describe a test suite for your document update flow
+// npm test > logs.txt or npm test >> logs.txt for appending
 describe('Document Update Flow', () => {
 
     // Test case: Check if the document update flow behaves as expected
@@ -22,15 +23,20 @@ describe('Document Update Flow', () => {
         await expect(checkUserDoc()).resolves.toBe(true);
     }, 10000); // Set a timeout of 10 seconds for this test
 
-    // TODO: Test caching methods here:
 
-    test('Successfully update and verify cached PIL documents', async () => {
+    test('Successfully update and verify cached PIL documents', done => {
+        weeklyCachePIL().then(result => {
+            expect(result).toBe(true);
+            done(); // Call done() when the promise resolves to signal Jest that the test is complete.
+        }).catch(err => {
+            done(err); // Pass any error to done to signal the test failed.
+        });
+    }, 200000); // Increase timeout as needed
+   
+    
+    // TODO: Push a fake doc into one of the PIL documents then run the test
+    test('Successfully push a fake PIL and update it', done => {
+        
 
-
-
-    }, 10000);
-
-
+    }, 200000)
 });
-
-await pushFakeDoc();
