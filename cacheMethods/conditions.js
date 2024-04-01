@@ -10,8 +10,6 @@ export const equalPath = async (cachedPath, newPath) => {
     // The cached path has replaced spaces with '%20'
     const newDoc = await getNewDocument(encodeURIComponent(newPath));                     
 
-    console.log(newDoc);
-
     // Fetch the current document's data
     const documentSnapshot = await firestore.collection("files").doc(cachedPath).get();
     const cachedDoc = documentSnapshot.data();
