@@ -55,7 +55,7 @@ export const weeklyCachePIL = async () => {
                         let [ newPILDoc, cachedDoc ] = await equalPath(cachedPath, newPath);
                         
                         if (cachedDoc) {
-                            let isEqual = compareBuffer(newPILDoc, cachedDoc);
+                            let isEqual = compareBuffer(newPILDoc, cachedDoc.doc);
                             
                             if (isEqual) { 
                                 console.log(`No new updates`); 
