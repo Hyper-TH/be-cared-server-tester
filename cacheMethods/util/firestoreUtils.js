@@ -59,3 +59,27 @@ export const getCachedDoc = async (path) => {
 
     return cachedDoc;
 };
+
+// Method to get user doc
+export const getUserDoc = async () => {
+    const userDocRef = await firestore.collection("users").doc("test2@123.com").get();
+    const userDoc = userDocRef.data();
+
+    console.log(userDoc);
+};
+
+// Method to get medicine doc 
+export const getMedDoc = async () => {
+    const medDocRef = await firestore.collection("medicines").doc("32665").get();
+    const medDoc = medDocRef.data();
+
+    console.log(medDoc);
+};
+
+// Method to get file doc 
+export const getFileDoc = async () => {
+    const fileDocRef = await firestore.collection("files").doc("62eba39dadab2.pdf").get();
+    const fileDoc = fileDocRef.data();
+
+    console.log(fileDoc);
+};
