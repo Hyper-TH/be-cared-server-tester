@@ -82,11 +82,13 @@ export const weeklyCachePIL = async () => {
 
             } catch (error) {
                 console.error(`An error occurred while processing medicine ID: ${medicineID}:`, error);
+                return false;
             }
         };
 
     } catch (error) {
         console.error(`Error fetching documents: ${error}`);
+        return false;
     }
     
     console.log("Job Ended");
@@ -119,7 +121,7 @@ export const weeklyCacheSPC = async () => {
             try {
                 const [ found, medsData ] = await getNewMedsData(medicineID, medicineName);
 
-                if (medsData.activeSPC.file.name) {
+                if (medsData.activeSPC.file) {
 
                     newPath = medsData.activeSPC.file.name;
 
@@ -127,7 +129,7 @@ export const weeklyCacheSPC = async () => {
                         let [ newSPCDoc, cachedDoc ] = await equalPath(cachedPath, newPath);
                         
                         if (cachedDoc) {
-                            let isEqual = compareBuffer(newSPCDoc, cachedDoc);
+                            let isEqual = compareBuffer(newSPCDoc, cachedDoc.doc);
                             
                             if (isEqual) { 
                                 console.log(`No new updates`); 
@@ -159,9 +161,11 @@ export const weeklyCacheSPC = async () => {
 
     } catch (error) {
         console.error(`Error fetching documents: ${error}`);
+        return false;
     }
     
     console.log("Job Ended");
+    return true;
 };  
 
 /*

@@ -3,19 +3,19 @@ import { tokenOptions } from "../tokenOptions.js";
 
 // Method to fetch medicine search results
 export const getMedicineList = async (name) => {
-    console.log(`Getting medicine list for: `, name);
+    // console.log(`Getting medicine list for: `, name);
 
     const token = await requestToken(tokenOptions);
-    console.log(`Got token`);
+    // console.log(`Got token`);
 
     const response = await requestList(token, name);
-    console.log(`Got response`);
+    // console.log(`Got response`);
 
     const status = response.status
     const list = response.list;
 
     if (status === 200) {
-        console.log(`Returning list`);
+        // console.log(`Returning list`);
         return list;
     } else {
         return [];
