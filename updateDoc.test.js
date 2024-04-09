@@ -24,24 +24,23 @@ describe('Document Update Flow', () => {
             // Optionally log the error or perform additional error handling
             throw new Error(`Test failed with error: ${error.message}`);
         }
-    }, 10000);
+    }, 10000); // Set a timeout of 10 seconds for this test
+
 
     // Test case: Check if the document update flow behaves as expected
     test('Successfully updates and verifies the user document', async () => {
         try {
-            // Step 3: Update the subscriber based on the fake document
+            // Step 1: Update the subscriber based on the fake document
             await updateSubscriber();
 
-            // Step 4: Verify the document update was successful
+            // Step 2: Verify the document update was successful
             const checkResult = await checkUserDoc();
             expect(checkResult).toBe(true);
             
         } catch (error) {
-            // Optionally log the error or perform additional error handling
             throw new Error(`Test failed with error: ${error.message}`);
         }
-    }, 10000); // Set a timeout of 10 seconds for this test
-
+    }, 10000); 
 
     // Test case: Weekly caching of PIL
     test('Successfully update and verify cached PIL documents', done => {
@@ -51,9 +50,11 @@ describe('Document Update Flow', () => {
         }).catch(err => {
             done(err); // Pass any error to done to signal the test failed.
         });
-    }, 200000); // Increase timeout as needed
+    }, 200000); 
 
 
+    // Test case: Setting up environment
+    // Medicine ID: 32665 has an outdated document with equal path
     test('Successfully set up test environment for SPC caching', async() => {
         try {
             const checkResult = await pushFakeDoc();
@@ -66,7 +67,7 @@ describe('Document Update Flow', () => {
     
 
     // Test case: Weekly caching of SPC 
-    // where target SPC is outdated with the same path
+    // where target SPC for 32665 is outdated with the same path
     test('Successfully push a fake SPC and update it', done  => {
         try {
             weeklyCacheSPC().then(result => {
