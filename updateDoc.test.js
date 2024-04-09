@@ -1,6 +1,7 @@
 import { pushFakeUserDoc } from './testMethods/pushFakeUserDoc.js'
 import { updateSubscriber } from './testMethods/updateSubscriber.js';
 import { checkUserDoc } from './testMethods/checkUserDoc.js'
+import { pushFakeDoc } from './testMethods/pushFakeDoc.js';
 import { notifications, weeklyCachePIL, weeklyCacheSPC } from './cacheMethods/cacheMethods.js';
 
 // Describe a test suite for your document update flow
@@ -51,12 +52,33 @@ describe('Document Update Flow', () => {
             done(err); // Pass any error to done to signal the test failed.
         });
     }, 200000); // Increase timeout as needed
-   
-    
-    // TODO: Push a fake doc into one of the PIL documents 
-    // then run the WeeklyCache again (except only log if its updated)
-    // test('Successfully push a fake PIL and update it', done => {
-        
 
-    // }, 200000)
+
+    test('Successfully set up test environment for SPC caching', async() => {
+        try {
+            const checkResult = await pushFakeDoc();
+            expect(checkResult).toBe(true);
+        } catch {
+            throw new Error(`Test failed with error ${error.message}`);
+        }
+
+    }, 10000)
+    
+
+    // Test case: Weekly caching of SPC 
+    // where target SPC is outdated with the same path
+    test('Successfully push a fake SPC and update it', done  => {
+        try {
+            weeklyCacheSPC().then(result => {
+                expect(result).toBe(true);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+
+        } catch {
+            throw new Error(`Test failed with error: ${error.message}`);
+        }
+
+    }, 200000)
 });
